@@ -20,5 +20,10 @@ function createTaskItem(text) {
 // Captura do submit
 taskForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    
-})
+    const text = taskInput.ariaValueMax.trim();
+    if (!text) return;
+    const li = createTaskItem(text);
+    taskList.appendChild(li);
+    taskInput.value = '';
+    taskInput.focus();
+});
