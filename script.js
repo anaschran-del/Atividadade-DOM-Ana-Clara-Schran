@@ -1,26 +1,26 @@
 // Seletores do DOM
 const taskForm = document.getElementById('taskForm');
-const taskInput = document.getElementById('tskInput');
+const taskInput = document.getElementById('taskInput');
 const taskList = document.getElementById('taskList');
 
 // Função que cria um <li> com texto e botão "Remover";
 function createTaskItem(text) {
     const li = document.createElement('li');
-    const span = document.careateElement('span');
+    const span = document.createElement('span');
     span.textContent = text;
     const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Eremover';
+    deleteBtn.textContent = 'Remover';
     deleteBtn.className = 'delete-bnt';
-    deleteBnt.type = 'button';
+    deleteBtn.type = 'button';
     li.appendChild(span);
-    li.appendChild(deletebnt);
+    li.appendChild(deleteBtn);
     return li;
 }
 
 // Captura do submit
 taskForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const text = taskInput.ariaValueMax.trim();
+    const text = taskInput.value.trim();
     if (!text) return;
     const li = createTaskItem(text);
     taskList.appendChild(li);
