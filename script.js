@@ -10,7 +10,7 @@ function createTaskItem(text) {
     span.textContent = text;
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'Remover';
-    deleteBtn.className = 'delete-bnt';
+    deleteBtn.className = 'delete-btn';
     deleteBtn.type = 'button';
     li.appendChild(span);
     li.appendChild(deleteBtn);
@@ -18,7 +18,7 @@ function createTaskItem(text) {
 }
 
 // Captura do submit
-taskForm.addEventListener('submit', function(e) {
+taskForm.addEventListener('submit', function (e) {
     e.preventDefault();
     const text = taskInput.value.trim();
     if (!text) return;
@@ -29,26 +29,26 @@ taskForm.addEventListener('submit', function(e) {
 });
 
 // Delegação de eventos no <ul>
-taskList.addEventListener('click', function(e) {
+taskList.addEventListener('click', function (e) {
     const li = e.target.closest('li');
     if (!li) return;
 
     // remover tarefa
-    if (e.targer.classList.contains('delete-btn')) {
+    if (e.target.classList.contains('delete-btn')) {
         li.remove();
         return;
     }
 
-// marcar como concluída
-if (e.target.tagName === 'SPAN') {
-    li.classList.toggle('completed');
-}
+    // marcar como concluída
+    if (e.target.tagName === 'SPAN') {
+        li.classList.toggle('completed');
+    }
 });
 
 let currentFilter = 'all';
 
 // Editar texto ao clicar duas vezes
-taskList.addEventListener('dblclick', function(e) [
+taskList.addEventListener('dblclick', function (e) {
     if (e.target.tagName === 'SPAN') {
         const span = e.target;
         const input = document.createElement('input');
@@ -58,17 +58,30 @@ taskList.addEventListener('dblclick', function(e) [
         span.replaceWith(input);
         input.focus();
 
-        input.addEventListener('blur, function'() {
+        input.addEventListener('blur', function () {
             const newSpan = document.createElement('span');
             newSpan.textContent = input.value.trim() || 'Sem título';
-            input.replaceWith(newSpan);        }
+            input.replaceWith(newSpan);
         });
     }
 });
 
 // Filtros
-document.querySelectorAll('.filter').forEach(btn =>) {
+document.querySelectorAll('.filter').forEach(btn => {
     btn.addEventListener('click', () => {
-        
-    }
+        currentFilter = btn.dataset.filter;
+        applyFilter();
+    });
+});
+
+function applyFilter() {
+    taskList.querySelectorAll('li').forEach(li => {
+        if (currentFilter === 'all') {
+            li.style.display = '';
+        } else if (currentFilter === 'active') {
+            li.style.display = li.classList.contains('completed') ? 'none' : '';
+        } else {
+            li.style.display = li.classList.contains('completed') ? '' : 'none';
+        }
+    });
 }
